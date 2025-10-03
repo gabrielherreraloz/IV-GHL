@@ -1,0 +1,10 @@
+# Descripción de las historias de usuario
+En este documento se decriben las historias de usuario para su posterior implementación deinitiva en las issues.
+
+## [HU1]
+Soy Gabriel, estudiante de la ETSIIT, y me cuesta mucho tiempo ver las distintas opciones que tengo para ir a la facultad de informática. Al tener que ir mirando una por una cada opcion cercana a mí en lugar de tener un listado directo o algo parecido que me ahorre tiempo.
+Necesito poder ver rapidamente las paradas cerccanas a mi ubicación y las líneas que pasan por cada una.
+
+## [HU2]
+Soy Gabriel, estudiante de la ETSIIT, tengo problemas al elegir cada día la combinación y ruta más rápida para ir a la facultad. Todos los días, dependiendo de la hora a la que salga de casa hay mejores o peores opciones dependiendo del horario. Además hay días que prefiero no andar mucho ya que llevo muy cargada la mochila y me fatiga mucho la espalda, por lo que debería ser un equilibrio entre tiempo y poder ir sentado.
+Necesito un listado ordenado de menor a mayor tiempo que requiere cada ruta de las opciones que tengo para elegir.

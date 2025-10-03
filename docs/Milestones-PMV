@@ -1,0 +1,25 @@
+## Descripción de Milestones y PMV
+
+# PMV - Milestone 0
+Modelo codificado del proyecto en base a las HUs aportadas anteriormente.
+Debe contener de forma modularizada, siguiendo las buenas prácticas e informándose del lenguaje de programación elegido para representar las distintas facetas del problema.
+Siguiendo las [HU1] e [HU2] y los conceptos quee plantean tales como paradas, rutas y tiempo.
+
+# PMV - Milestone 1
+Aplicación que cargue la información necesaria sobre horarios y ubicación de paradas de la web del consorcio de transportes.
+Siguiendo el problema descrito en la [HU1]
+
+# PMV - Milestone 2
+Aplicación que muestre las distintas rutas y posibles combinaciones para llegar al destino requerido.
+Debe ser capaz de obtener los distintos trayectos posibles en base a la posición actual y paradas cercanas sobre el mapa, a partir de la información recolectada de la web.
+Siguiendo los problemas descritos en la [HU1] e [HU2]
+
+# PMV - Milestone 3
+Aplicación que muestre los tiempos de cada posible combinación y del caso más óptimo.
+Debe de, a partir de las combinaciones posibles, aportar la solución o soluciones más optimas en cada posible ámbito.
+Suguiendo el problema descrito en la [HU2]
+
+# PMV - Milestone 4
+Interfaz gráfica de usuario de la aplicación.
+Debe reflejar las funcionalidades implementadas hasta el momento y permitir el manejo de la aplicación.
+Siguiendo los problemas descritos en la [HU1] e [HU2]
