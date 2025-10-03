@@ -13,3 +13,9 @@ Me gustaría tener una solución que incluya los horarios de las paradas de mi z
 
 ## Configuración de GIT
 ![](https://github.com/gabrielherreraloz/IV-GHL/blob/main/img/Conf-GIT.png?raw=true)
+
+## Historias de usuario
+[Historias de usuario]()
+
+## Milestones
+[Milestones]()
