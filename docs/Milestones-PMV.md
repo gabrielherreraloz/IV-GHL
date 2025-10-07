@@ -2,7 +2,7 @@
 
 # PMV - Milestone 0
 Modelo codificado del proyecto en base a las HUs aportadas anteriormente.
-Debe contener de forma modularizada, informándose del lenguaje de programación elegido para representar las distintas facetas del problema.
+Debe contener de forma modularizada, informándose del lenguaje de programación elegido, una representación de las distintas facetas del problema.
 Siguiendo las [HU1] e [HU2] y los conceptos específicos quee plantean.
 
 # PMV - Milestone 1 
