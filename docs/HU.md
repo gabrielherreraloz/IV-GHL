@@ -6,7 +6,7 @@ Soy estudiante de la ETSIIT y vivo en el área metropolitana de Granada, y me cu
 Necesito poder ver rapidamente las paradas cercanas a mi ubicación y las líneas que pasan por cada una.
 
 ## [HU2]
-Soy residente de la zona metropolitana de Granada y cada día tengo que desplazarme hasta la facultad de informática, tengo problemas al elegir cada vez la combinación y ruta más rápida para ir a la facultad. Cada día, dependiendo de la hora a la que salga, unas opciones son mejores que otras dependiendo del horario, por lo que me lío mucho y nunca recuerdo cual es cual para cada día.
+Soy residente de la zona metropolitana de Granada y cada día tengo que desplazarme hasta la facultad de informática, tengo problemas al elegir cada vez la combinación y ruta más rápida para ir a la facultad. Cada día, dependiendo de la hora a la que salga, unas opciones son mejores que otras dependiendo del horario, por lo que me genera mucha confusión recordar cual es cual para cada día.
 Necesito ver las distintas opciones rapidamente de un vistazo.
 
 ## [HU3]
