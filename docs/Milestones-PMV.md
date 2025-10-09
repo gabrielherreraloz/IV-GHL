@@ -6,7 +6,7 @@ Debe contener de forma modularizada, informándose del lenguaje de programación
 Siguiendo las [HU1] e [HU2] y los conceptos específicos quee plantean.
 
 # PMV - Milestone 1: Cargado de los datos necesarios
-Módulo encargado de cargar los datos y la información mínima y acotada, necesaria sobre los conceptos planteados en las HUs.
+Módulo que incluya el código encargado de cargar los datos y la información mínima y acotada, necesaria sobre los conceptos planteados en las HUs.
 Requisitos: Debe cargar la información necesaria y guardarla en la nube.
 Siguiendo el problema descrito en la [HU1]
 
