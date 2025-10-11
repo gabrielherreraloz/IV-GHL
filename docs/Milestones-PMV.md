@@ -2,8 +2,8 @@
 
 # PMV - Milestone 0: Modelo base del proyecto
 Modelo codificado del proyecto en base a las HUs aportadas anteriormente.
-Debe contener de forma modularizada, informándose del lenguaje de programación elegido, una representación de las distintos casos que presenta del problema.
-Siguiendo las [HU1] e [HU2] y los conceptos específicos quee plantean.
+Debe contener de forma modularizada, informándose del lenguaje de programación elegido, una representación globalizada del proyecto y el fín del mismo.
+Siguiendo las [HU1] e [HU2] y los conceptos que plantean.
 
 # PMV - Milestone 1: Cargado de los datos necesarios
 Módulo que incluya el código encargado de cargar los datos y la información mínima y acotada, necesaria sobre los conceptos planteados en las HUs.
