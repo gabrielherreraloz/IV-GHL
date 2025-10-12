@@ -2,7 +2,7 @@
 
 # PMV - Milestone 0: Modelo base del proyecto
 Modelo codificado del proyecto en base a las HUs aportadas anteriormente.
-Debe contener de forma modularizada, informándose del lenguaje de programación elegido, una representación globalizada del proyecto y el fín del mismo.
+Requisitos: Para su aprobación debe seguir la metodología de desarrollo ágil, representando gradualmente de forma globalizada mediante modularización de los elementos tomados de la [HU1] y [HU2], y siguiendo las correctas pautas del lenguaje seleccionado.
 Siguiendo las [HU1] e [HU2] y los conceptos que plantean.
 
 # PMV - Milestone 1: Cargado de los datos necesarios
