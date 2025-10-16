@@ -6,6 +6,6 @@ Requisitos: Para su aprobación debe seguir la metodología de desarrollo, repre
 Siguiendo las [HU1] e [HU2] y los conceptos que plantean.
 
 # PMV - Milestone 1: Aplicación de la lógica de negocio del problema
-Implementación en código de la lógica de negocio del problema planteado en el proyecto, centrada en la obtención de rutas y localizaciones en relación a la posición geográfica. 
-Requisitos: Para su aprobación, debe seguir la metodología de desarrollo, resolviendo el problema tratado en la [HU1].
+Implementación en código de la lógica de negocio del problema tratado en la [HU1]. 
+Requisitos: Para su aprobación, debe seguir la metodología de desarrollo, resolviendo el problema descrito en la [HU1].
 
