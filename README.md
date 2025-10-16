@@ -17,5 +17,8 @@ Me gustaría tener una solución que incluya los horarios de las paradas de mi z
 ## Historias de usuario
 [Historias de usuario](docs/HU.md)
 
+## User Journeys
+[User Journeys](docs/UserJourneys.md)
+
 ## Milestones
 [Milestones](docs/Milestones-PMV.md)
