@@ -9,7 +9,16 @@ Me gustaría tener una solución que incluya los horarios de las paradas de mi z
 
 
 ## Clave SSH
-![](https://github.com/gabrielherreraloz/IV-GHL/blob/main/img/Clave-SSH.png?raw=true)
+![Clave SSH](assets/Conf-GIT.png)
 
 ## Configuración de GIT
-![](https://github.com/gabrielherreraloz/IV-GHL/blob/main/img/Conf-GIT.png?raw=true)
+![Configuración de GIT](assets/Clave-SSH.png)
+
+## Historias de usuario
+[Historias de usuario](docs/HU.md)
+
+## User Journeys
+[User Journeys](docs/UserJourneys.md)
+
+## Milestones
+[Milestones](docs/Milestones-PMV.md)
