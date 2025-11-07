@@ -33,5 +33,5 @@ Se ha seleccionado como gestor de tareas "Makefile", el cual además de ser muy 
 [User Journeys](docs/UserJourneys.md)
 
 ## Milestones
-[Milestones](docs/Milestones-PMV.md)
+[Milestones](docs/Milestones.md)
 
