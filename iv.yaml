@@ -1,2 +1,5 @@
 lenguaje: go
 entidad: internal/persona/model.go
+automatizar:
+  fichero: Makefile
+  orden: make
