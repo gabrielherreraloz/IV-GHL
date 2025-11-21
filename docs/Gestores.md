@@ -14,8 +14,6 @@ Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias
   
   - **Integración con el lenguaje**: Una alta integración permite tareas más complejas que hacerlas en shell ccomo interactuar con librerías o estructuras de datos del proyecto.
 
-  - **Confiabilidad**: El gestor seleccionado debe contar con mantenimiento activo, y que asegure su compatibilidad en versiones futuras.
-
  ### Opciones posibles
 Para la elección del gestor de tareas se presentaban distintas opciones bastante interesantes, de las cuales he querido recalcar tres:
 
@@ -28,8 +26,6 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
    - **Compilación propia**: No incluida.
    
    - **Integración con el lenguaje**: Es baja puesto que solo realiza llamadas a comandos externos de Go.
-   
-   - **Confiabilidad**: Muy alta, con un mantenimiento bastante activo entre la comunidad de Go, siendo muy popular en esta.
  
 
  - **Goyek**: También muy referenciado y más recomendado que gotaskr en Reddit. Cumplimiento de criterios:
@@ -41,8 +37,6 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
    - **Compilación propia**: Inlcuida, al estar integrado directamente con Go.
    
    - **Integración con el lenguaje**: Muy alta, al estar escrito en el mismo lenguaje, tiene compatibilidad total con el código nativo.
-   
-   - **Confiabilidad**: Media - Alta, es activo y mantenido por la comunidad pero es menos popular que las otras dos opciones presentadas.
  
 
  - **makefile**: Uno de los más conocidos y muy trabajado en la carrera de Ingeniería Informática. Cumplimiento de criterios:
@@ -55,11 +49,9 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
 
    - **Integración con el lenguaje**: Es baja puesto que solo realiza llamadas a comandos externos de Go.
 
-   - **Confiabilidad**: Muy alta, al ser software libre aporta un mantenimiento asegurado institucional por parte de FSF, siendo esta opción la más confiable a largo plazo.
-
   ### Elección final
   
-  Finalemente, en base a los criterios mencionados, se ha decididio usar Makefile puesto que aporta mayor universalidad al estar instalado de forma predeterminada en muchos sistemas operativos, además su confiabilidad elimina una posible deuda técnica generada a largo plazo. Sin bien es cierto que Goyek aporta mayor integración con Go en programación más avanzada, para las tareas que se van a realizar make creo que es más que suficiente en este caso.
+  Finalemente, en base a los criterios mencionados, se ha decididio usar Makefile puesto que aporta mayor universalidad al estar instalado de forma predeterminada en muchos sistemas operativos, además su largo bagaje con años de mantenimiento elimina una posible deuda técnica generada a largo plazo. Sin bien es cierto que Goyek aporta mayor integración con Go en programación más avanzada, para las tareas que se van a realizar make creo que es más que suficiente en este caso.
  
 
 ### Comandos de interés de makefile
