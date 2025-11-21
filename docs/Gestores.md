@@ -1,6 +1,11 @@
 # Decisiones tomadas en la elección de gestores enfocados en el uso de tests
 
 ## Gestor de Dependencias
+
+### Criterios de selección
+  - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema o inlcuido en la propia instalación para utilizar el lenguaje del proyecto.
+
+### Decisión final
 Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias "Go Modules", el cual ha sido elegido ya que está directamente integrado en las herramientas base de Go y no es necesario instalar nada adicional, lo cual facilita la portabilidad del proyecto. Además, al ser el gestor nativo del lenguaje, lo hace perfectamente compatible con este. Además, Go Modules es sin duda el gestor de dependncias más popular y utilizado en proyectos escritos en Go.
 
 ## Gestor de tareas
@@ -12,7 +17,7 @@ Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias
 
   - **Compilación propia**: Si el gestor de tareas incluye un compilador propio, esto ayuda a la detección de errores antes de la ejecución del código, permite la reutilización directa del código del lenguaje nativo del proyecto, en este caso Go, además se evita la necesidad de utilizar herramientas externas.
   
-  - **Integración con el lenguaje**: Una alta integración permite tareas más complejas que hacerlas en shell ccomo interactuar con librerías o estructuras de datos del proyecto.
+  - **Integración con el lenguaje**: Una alta integración permite tareas más allá que lo que permite shell, como interactuar con librerías o estructuras de datos del proyecto.
 
  ### Opciones posibles
 Para la elección del gestor de tareas se presentaban distintas opciones bastante interesantes, de las cuales he querido recalcar tres:
@@ -41,7 +46,7 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
 
  - **makefile**: Uno de los más conocidos y muy trabajado en la carrera de Ingeniería Informática. Cumplimiento de criterios:
 
-   - **Requisito de instalación**: Está instalado en Linux y MacOS de manera predeterminada por lo que no es necesaria su instalación independiente para su uso.
+   - **Requisito de instalación**: Está instalado en Linux y MacOS de manera predeterminada por lo que no es necesaria su instalación independiente para su uso si es en uno de estos sistemas, cosa que no se cumple si lo hacemos en Windows.
 
    - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema.
 
