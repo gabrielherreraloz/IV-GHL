@@ -7,13 +7,9 @@ Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias
 ## Gestor de tareas
 
  ### Criterios de selección
-  - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema para así facilitar y aumentar su escalabilidad.
+  - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema para así facilitar y mejorar su portabilidad entre sistemas.
 
   - **Lenguaje de ejecución**: Si el lenguaje usado por el gestor coincide con el lenguaje elegido para el proyecto, facilita en gran medida su utilización.
-
-  - **Compilación propia**: Si el gestor de tareas incluye un compilador propio, esto ayuda a la detección de errores antes de la ejecución del código, permite la reutilización directa del código del lenguaje nativo del proyecto, en este caso Go, además se evita la necesidad de utilizar herramientas externas.
-  
-  - **Integración con el lenguaje**: Una alta integración permite tareas más allá que lo que permite shell, como interactuar con librerías o estructuras de datos del proyecto.
 
  ### Opciones posibles
 Para la elección del gestor de tareas se presentaban distintas opciones bastante interesantes, de las cuales he querido recalcar tres:
@@ -23,10 +19,6 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
    - **Requisito de instalación**: No viene instalado de forma predeterminada en ningún sistema operativo por lo que es necesario la instalación del binario task.
    
    - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema.
-
-   - **Compilación propia**: No incluida.
-   
-   - **Integración con el lenguaje**: Es baja puesto que solo realiza llamadas a comandos externos de Go.
  
 
  - **Goyek**: También muy referenciado y más recomendado que gotaskr en Reddit. Cumplimiento de criterios:
@@ -34,10 +26,6 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
    - **Requisito de instalación**: No viene instalado predeterminadamente en ningún sistema operativo, requiere compilación del mismo o instalación.
    
    - **Lenguaje de ejecución**: En Go, lenguaje nativo del proyecto, esto facilita mucho la tareas de programador.
-
-   - **Compilación propia**: Inlcuida, al estar integrado directamente con Go.
-   
-   - **Integración con el lenguaje**: Muy alta, al estar escrito en el mismo lenguaje, tiene compatibilidad total con el código nativo.
  
 
  - **makefile**: Uno de los más conocidos y muy trabajado en la carrera de Ingeniería Informática. Cumplimiento de criterios:
@@ -46,13 +34,9 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
 
    - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema.
 
-   - **Compilación propia**: No incluida.
-
-   - **Integración con el lenguaje**: Es baja puesto que solo realiza llamadas a comandos externos de Go.
-
   ### Elección final
   
-  Finalemente, en base a los criterios mencionados, se ha decididio usar Makefile puesto que aporta mayor universalidad al estar instalado de forma predeterminada en muchos sistemas operativos, además su largo bagaje con años de mantenimiento elimina una posible deuda técnica generada a largo plazo. Sin bien es cierto que Goyek aporta mayor integración con Go en programación más avanzada, para las tareas que se van a realizar make creo que es más que suficiente en este caso.
+  Finalemente, en base a los criterios mencionados, se ha decididio usar Makefile puesto que aporta mayor portabilidad al estar instalado de forma predeterminada en muchos sistemas operativos, además su largo bagaje con años de mantenimiento elimina una posible deuda técnica generada a largo plazo. Si bien es cierto que Goyek se escribe en Go al igual que el proyecto, no justifica su elección por delante del requisito de instalación, que prevalece en importancia al marcar una diferencia mucho más significativa.
  
 
 ### Comandos de interés de makefile
