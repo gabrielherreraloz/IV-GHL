@@ -1,12 +1,8 @@
-# Decisiones tomadas en la elección de gestores enfocados en el uso de tests
+# Decisiones tomadas en la elección de gestores
 
 ## Gestor de Dependencias
 
-### Criterios de selección
-  - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema o inlcuido en la propia instalación para utilizar el lenguaje del proyecto.
-
-### Decisión final
-Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias "Go Modules", el cual ha sido elegido ya que está directamente integrado en las herramientas base de Go y no es necesario instalar nada adicional, lo cual facilita la portabilidad del proyecto. Además, al ser el gestor nativo del lenguaje, lo hace perfectamente compatible con este. Además, Go Modules es sin duda el gestor de dependncias más popular y utilizado en proyectos escritos en Go.
+Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias "Go Modules", es realemnete la unica posibilidad que se plantea ya que "Go Modules" es la única versión realista y actualizada a día de hoy, puesto que el resto de posibilidades están obsoletas y todos proyectos de Go en la actualidad usan esta herramienta, siendo además "Go Modules" el gestor de dependencias oficial de Go.
 
 ## Gestor de tareas
 
