@@ -2,7 +2,11 @@
 
 ## Gestor de Dependencias
 
-Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias "Go Modules", es realemnete la unica posibilidad que se plantea ya que "Go Modules" es la única versión realista y actualizada a día de hoy, puesto que el resto de posibilidades están obsoletas y todos proyectos de Go en la actualidad usan esta herramienta, siendo además "Go Modules" el gestor de dependencias oficial de Go.
+Criterio principal: Que esté instalado de forma predeterminada junto con el lenguaje.
+
+Para este proyecto escrito en Go, se ha seleccionado como gestor de dependencias **Go Modules**, cumpliendo el requisito principal de que esté instalado de forma automática junto con el modelo de lenguaje, siendo además el gestor de dependencias oficial de Go. 
+
+Actualemente es la única opción tener en cuenta ya que el resto de opciones no están mantenidas a día de hoy, resultando en su obsolescencia y desuso.
 
 ## Gestor de tareas
 
@@ -36,7 +40,7 @@ Para la elección del gestor de tareas se presentaban distintas opciones bastant
 
   ### Elección final
   
-  Finalemente, en base a los criterios mencionados, se ha decididio usar Makefile puesto que aporta mayor portabilidad al estar instalado de forma predeterminada en muchos sistemas operativos, además su largo bagaje con años de mantenimiento elimina una posible deuda técnica generada a largo plazo. Si bien es cierto que Goyek se escribe en Go al igual que el proyecto, no justifica su elección por delante del requisito de instalación, que prevalece en importancia al marcar una diferencia mucho más significativa.
+  Finalemente, en base a los criterios mencionados, se ha decididio usar Makefile puesto que aporta mayor portabilidad al estar instalado de forma predeterminada en muchos sistemas operativos. Si bien es cierto que Goyek se escribe en Go al igual que el proyecto, no justifica su elección por delante del requisito de instalación, que prevalece en importancia al marcar una diferencia mucho más significativa.
  
 
 ### Comandos de interés de makefile
