@@ -13,30 +13,30 @@ Actualemente es la única opción tener en cuenta ya que el resto de opciones no
  ### Criterios de selección
   - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema para así facilitar y mejorar su portabilidad entre sistemas.
 
-  - **Lenguaje de ejecución**: Si el lenguaje usado por el gestor coincide con el lenguaje elegido para el proyecto, facilita en gran medida su utilización.
+  - **Lenguaje de ejecución**: Si el lenguaje usado por el gestor coincide con el lenguaje elegido para el proyecto, permite a este trabajar sobre las funciones, clases o librerias del código directamente. Además, al usar el mismo lenguaje, no son necesarios intérpretes externos para este, simplificando la instalación y ejecución.
 
  ### Opciones posibles
 Para la elección del gestor de tareas se presentaban distintas opciones bastante interesantes, de las cuales he querido recalcar tres:
 
- - **GoTask**: Se ha tenido en cuenta por haber sido referenciada por algunos usuarios de Reddit. Cumplimiento de criterios:
+ - [**GoTask**](https://github.com/go-task/task): Cumplimiento de criterios:
    
    - **Requisito de instalación**: No viene instalado de forma predeterminada en ningún sistema operativo por lo que es necesario la instalación del binario task.
    
-   - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema.
+   - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema. En la mayoría de sistemas no supone un problema pero en algunos entornos como Windows podría ser necesario instalar un intérprete adicional.
  
 
- - **Goyek**: También muy referenciado y más recomendado que gotaskr en Reddit. Cumplimiento de criterios:
+ - [**Goyek**](https://github.com/goyek/goyek): Cumplimiento de criterios:
    
    - **Requisito de instalación**: No viene instalado predeterminadamente en ningún sistema operativo, requiere compilación del mismo o instalación.
    
-   - **Lenguaje de ejecución**: En Go, lenguaje nativo del proyecto, esto facilita mucho la tareas de programador.
+   - **Lenguaje de ejecución**: En Go, lenguaje nativo del proyecto, permite a este trabajar sobre las funciones, clases o librerias del código directamente.
  
 
- - **makefile**: Uno de los más conocidos y muy trabajado en la carrera de Ingeniería Informática. Cumplimiento de criterios:
+ - [**makefile**](https://www.gnu.org/software/make/manual/make.html): Cumplimiento de criterios:
 
    - **Requisito de instalación**: Está instalado en Linux y MacOS de manera predeterminada por lo que no es necesaria su instalación independiente para su uso si es en uno de estos sistemas, cosa que no se cumple si lo hacemos en Windows.
 
-   - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema.
+   - **Lenguaje de ejecución**: Shell, comandos de ordenes del sistema. En la mayoría de sistemas no supone un problema pero en algunos entornos como Windows podría ser necesario instalar un intérprete adicional.
 
   ### Elección final
   
