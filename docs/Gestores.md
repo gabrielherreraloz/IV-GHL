@@ -11,7 +11,7 @@ Actualemente es la única opción tener en cuenta ya que el resto de opciones no
 ## Gestor de tareas
 
  ### Criterios de selección
-  - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema para así facilitar y mejorar su portabilidad entre sistemas.
+  - **Requisito de instalación**: Es preferible que el gestor de tareas elegido esté preinstalado de forma automática en el sistema para así mejorar su portabilidad entre sistemas.
 
   - **Lenguaje de ejecución**: Si el lenguaje usado por el gestor coincide con el lenguaje elegido para el proyecto, permite a este trabajar sobre las funciones, clases o librerias del código directamente. Además, al usar el mismo lenguaje, no son necesarios intérpretes externos para este, simplificando la instalación y ejecución.
 
