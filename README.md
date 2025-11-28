@@ -7,12 +7,11 @@ Como estudiante en la facultad de ingeniería informática en la UGR, tengo seri
 
 Me gustaría tener una solución que incluya los horarios de las paradas de mi zona y la facultad para calcular en cada momento la combinación andando, en autobús, en metro... necesaria para tardar el menor tiempo posible. Toda esta información es pública y se puede extraer de archivos docx alojados en la web.
 
-
 ## Clave SSH
-![Clave SSH](assets/Conf-GIT.png)
+[Clave SSH](assets/Conf-GIT.png)
 
 ## Configuración de GIT
-![Configuración de GIT](assets/Clave-SSH.png)
+[Configuración de GIT](assets/Clave-SSH.png)
 
 ## Historias de usuario
 [Historias de usuario](docs/HU.md)
@@ -21,4 +20,7 @@ Me gustaría tener una solución que incluya los horarios de las paradas de mi z
 [User Journeys](docs/UserJourneys.md)
 
 ## Milestones
-[Milestones](docs/Milestones-PMV.md)
+[Milestones](docs/Milestones.md)
+
+## Gestores de tareas y dependencias
+[Gestores de tareas y dependencias](docs/Gestores.md)
