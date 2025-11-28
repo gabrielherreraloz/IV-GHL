@@ -1,2 +1,2 @@
 lenguaje: go
-entidad: internal/persona/model.go
+entidad: internal/transporte/model.go
