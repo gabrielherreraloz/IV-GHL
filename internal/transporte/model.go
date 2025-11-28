@@ -2,7 +2,7 @@ package transporte
 
 import "internal/parada"
 
-type Transporte struct {
+type Linea struct {
     tipoMedio string
     nombre string
     numLinea string
