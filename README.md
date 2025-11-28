@@ -24,3 +24,6 @@ Me gustaría tener una solución que incluya los horarios de las paradas de mi z
 
 ## Gestores de tareas y dependencias
 [Gestores de tareas y dependencias](docs/Gestores.md)
+
+## Tests
+[Ubicación del archivo de tests](pkg/utils/utils_test.go)
