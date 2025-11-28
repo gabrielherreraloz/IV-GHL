@@ -6,5 +6,5 @@ type Transporte struct {
     tipoMedio string
     nombre string
     numLinea string
-    paradas []Parada
+    paradas []*Parada
 }
