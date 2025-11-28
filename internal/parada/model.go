@@ -3,8 +3,8 @@ package parada
 import "internal/transporte"
 
 type Parada struct {
-    nombre string `json:"nombre"`
-    latitud float64 `json:"latitud"`
-    longitud string `json:"longitud"`
-    lineasCorrespondencia map[string]Trasnporte `json:"lineasCorrespondencia"`
+    nombre string
+    latitud float64
+    longitud string
+    lineasCorrespondencia map[string]Trasnporte
 }
