@@ -2,6 +2,8 @@ package transporte
 
 
 type Linea struct {
+    // Identifica a la linea
+    id uint
     tipoMedio string
     nombre string
     numLinea string
@@ -10,5 +12,7 @@ type Linea struct {
 
 type Parada struct {
     nombre string
-    correspondenciaLineas map[string]*Linea
+    // Lista de ids únicos para identificar la misma linea
+    lineasIds []uint 
 }
+
