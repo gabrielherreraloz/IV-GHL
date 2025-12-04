@@ -1,8 +1,15 @@
 package transporte
 
 
+type TipoMedio int
+const (
+    AUTOBUS = TipoMedio iota
+    TRANVIA
+    TAXI
+)
+
 type Linea struct {
-    tipoMedio string
+    tipoMedio TipoMedio
     nombre string
     numLinea string
     paradas []*Parada
