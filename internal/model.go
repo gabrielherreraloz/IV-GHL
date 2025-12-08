@@ -18,7 +18,7 @@ type Parada struct {
 }
 
 type Almacen struct {
-	lineas map[uint]Linea
-	paradas map[uint]Parada
+	Lineas map[uint]*Linea
+	Paradas map[uint]*Parada
 }
 
