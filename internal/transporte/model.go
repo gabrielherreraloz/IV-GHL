@@ -3,7 +3,7 @@ package transporte
 
 type TipoMedio int
 const (
-    AUTOBUS = TipoMedio iota
+    AUTOBUS TipoMedio = iota
     TRANVIA
     TAXI
 )
@@ -12,7 +12,7 @@ type Linea struct {
     tipoMedio TipoMedio
     nombre string
     numLinea string
-    paradas []*Parada
+    paradas [uint]*Parada
 }
 
 type Parada struct {
@@ -22,5 +22,6 @@ type Parada struct {
 }
 
 // Almacenamos las lineas a partir de un ID único.
-lineas = map[uint]Linea
+var paradas = map[uint]*Parada{}
+var lineas = map[uint]*Linea{}
 
