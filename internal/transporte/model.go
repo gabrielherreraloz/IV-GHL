@@ -12,7 +12,7 @@ type Linea struct {
     tipoMedio TipoMedio
     nombre string
     numLinea string
-    paradas [uint]*Parada
+    paradas map[uint]*Parada
 }
 
 type Parada struct {
