@@ -22,6 +22,8 @@ type Parada struct {
 }
 
 // Almacenamos las lineas a partir de un ID único.
-var paradas = map[uint]*Parada{}
-var lineas = map[uint]*Linea{}
+type Almacen struct {
+    paradas map[uint]*Parada
+    lineas map[uint]*Linea
+}
 
