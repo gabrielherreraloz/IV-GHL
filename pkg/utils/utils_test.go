@@ -1,47 +1,73 @@
 package utils
 
 import (
-	"testing"
-	"strings"
+    "testing"
+    "strings"
+    "os"
+    "path/filepath"
     "IV-GHL/pkg/scrapper"
 )
 
-// Bloque para procesar número de línea en GetNumLinea
-const mockHTMLTitulo = `
-    <div class="sub-nav-titl"><h2>0100 - Granada - Jun - A.Humeya - Víznar </h2></div>
-    <div class="migas">
-        <span>0100 - Granada - Jun - A.Humeya - Víznar</span>
-    </div>
-`
+// Ruta de los HTML descargados de ejemplo estandar (Happy Path)
+const testDataDir = "../../testdata" 
 
 /////////////////////////////////////////////////////////////////////////////////////
-// TESTS PARA EXTRAER PARADAS
+// TESTS PARA EXTRAER LÍNEA COMPLETA (HAPPY PATH COMPLETO)
+/////////////////////////////////////////////////////////////////////////////////////
+
+func TestExtraerLinea(t *testing.T) {
+    files, err := filepath.Glob(filepath.Join(testDataDir, "*.html"))
+    if err != nil {
+        t.Fatalf("Error al buscar archivos HTML en %s: %v", testDataDir, err)
+    }
+
+    if len(files) == 0 {
+        t.Fatalf("No se encontraron archivos HTML en la carpeta 'testdata'")
+    }
+
+    // Iteraración sobre cada HTML
+    for _, filePath := range files {
+        fileName := filepath.Base(filePath) 
+
+        t.Run("Happy_Path_File_" + fileName, func(t *testing.T) {
+            t.Parallel() 
+
+            htmlContent, err := os.ReadFile(filePath)
+            if err != nil {
+                t.Fatalf("No se pudo leer el archivo %s: %v", fileName, err)
+            }
+            
+            htmlString := string(htmlContent)
+            linea, err := scrapper.ExtraerLinea(htmlString)
+
+            if err != nil {
+                t.Errorf("FAIL [%s]: Se obtuvo un error: %v", fileName, err)
+                return
+            }
+
+            expectedNumLinea := strings.TrimPrefix(strings.TrimSuffix(fileName, ".html"), "linea_")
+
+            if linea.NumLinea != expectedNumLinea {
+                t.Errorf("FAIL [%s]: NumLinea incorrecto. Se esperaba '%s', se obtuvo '%s'", 
+                    fileName, expectedNumLinea, linea.NumLinea)
+            }
+            
+            if len(linea.Horario_Paradas_Ida) == 0 {
+                t.Errorf("FAIL [%s]: No se extrajeron paradas de Ida.", fileName)
+            }
+
+            if len(linea.Horario_Paradas_Vuelta) == 0 {
+                t.Errorf("FAIL [%s]: No se extrajeron paradas de Vuelta.", fileName)
+            }
+        })
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// TESTS PARA EXTRAER PARADAS (SAD PATH)
 /////////////////////////////////////////////////////////////////////////////////////
 
 func TestExtraerNombresParadas(t *testing.T) {
-    t.Run("Happy_Path_Estructura_Normal", func(t *testing.T) {
-        html := `
-            <table>
-                <tr>
-                    <th>Parada A</th>
-                    <th>Parada B</th>
-                    <th><a href="/link">Parada C</a></th>
-                </tr>
-            </table>
-        `
-        nombres := scrapper.ExtraerNombresParadas(html)
-        
-        expected := []string{"Parada A", "Parada B", "Parada C"}
-        if len(nombres) != len(expected) {
-            t.Fatalf("Longitud incorrecta. Se esperaba %d, se obtuvo %d", len(expected), len(nombres))
-        }
-        for i, name := range nombres {
-            if name != expected[i] {
-                t.Errorf("Fallo en índice %d. Se esperaba '%s', se obtuvo '%s'", i, expected[i], name)
-            }
-        }
-    })
-
     t.Run("Sad_Path_Sin_Paradas", func(t *testing.T) {
         html := `<table><tr></tr></table>`
         nombres := scrapper.ExtraerNombresParadas(html)
@@ -76,35 +102,10 @@ func TestExtraerNombresParadas(t *testing.T) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-// TESTS PARA EXTRAER NÚMERO DE LÍNEA
+// TESTS PARA EXTRAER NÚMERO DE LÍNEA (SAD PATH)
 /////////////////////////////////////////////////////////////////////////////////////
 
 func TestGetNumLinea(t *testing.T) {
-    t.Run("Happy_Path_Titulo_Estandar", func(t *testing.T) {
-        numLinea, error := scrapper.GetNumLinea(mockHTMLTitulo)
-        if (error != nil) {
-            t.Errorf("ERROR: Se obtuvo: %v", error)
-        }
-
-        expected := "0100"
-        if numLinea != expected {
-            t.Errorf("Se esperaba '%s', Se obtuvo '%s'", expected, numLinea)
-        }
-    })
-
-    t.Run("Happy_Path_Titulo_Con_Espacios_Adicionales", func(t *testing.T) {
-        html := `<h2>   0200   -    OTRA RUTA   </h2>`
-        numLinea, error := scrapper.GetNumLinea(html)
-        if (error != nil) {
-            t.Errorf("ERROR: Se obtuvo: %v", error)
-        }
-
-        expected := "0200"
-        if numLinea != expected {
-            t.Errorf("Se esperaba '%s', Se obtuvo '%s'", expected, numLinea)
-        }
-    })
-
     t.Run("Sad_Path_Sin_Separador", func(t *testing.T) {
         html := `<h2> LINEA SIN GUION </h2>`
         numLinea, err := scrapper.GetNumLinea(html)
@@ -137,18 +138,10 @@ func TestGetNumLinea(t *testing.T) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-// TESTS PARA EXTRAER Y LIMPIAR TEXTO DE CELDA (ExtraerTexto ya estaba exportada)
+// TESTS PARA EXTRAER Y LIMPIAR TEXTO DE CELDA (SAD PATH)
 /////////////////////////////////////////////////////////////////////////////////////
 
 func TestExtraerTexto(t *testing.T) {
-    t.Run("Happy_Path_Texto_Estandar", func(t *testing.T) {
-        input := "   Texto Limpio  "
-        expected := "Texto Limpio"
-        if result := scrapper.ExtraerTexto(input); result != expected {
-            t.Errorf("Se esperaba '%s', Se obtuvo '%s'", expected, result)
-        }
-    })
-
     t.Run("Sad_Path_Solo_Tags_o_Espacios", func(t *testing.T) {
         inputs := map[string]string{
             "   ":          "---",
