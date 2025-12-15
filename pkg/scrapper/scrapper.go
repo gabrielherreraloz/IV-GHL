@@ -32,23 +32,13 @@ func ExtraerLinea(htmlContent string) *internal.Linea {
 
 	// Extracción de nombres de paradas y horarios de ida y vuelta
 	nombresIda := ExtraerNombresParadas(bloqueIda)
-	horariosMatrizIda := ProcesarBloqueTabla(bloqueIda)
-	for i := 0; i < len(horariosMatrizIda); i++ {
-		for j := 0; j < len(nombresIda); j++ {
-			if j < len(horariosMatrizIda[i]) {
-				linea.Horario_Paradas_Ida[nombresIda[j]] = append(linea.Horario_Paradas_Ida[nombresIda[j]], horariosMatrizIda[i][j])
-			}
-		}
+	for i := 0; i < len(nombresIda); i++ {
+		linea.Horario_Paradas_Ida[nombresIda[i]] = append(linea.Horario_Paradas_Ida[nombresIda[i]], "")
 	}
 
 	nombresVuelta := ExtraerNombresParadas(bloqueVuelta)
-	horariosMatrizVuelta := ProcesarBloqueTabla(bloqueVuelta)
-	for i := 0; i < len(horariosMatrizVuelta); i++ {
-		for j := 0; j < len(nombresVuelta); j++ {
-			if j < len(horariosMatrizVuelta[i]) {
-				linea.Horario_Paradas_Vuelta[nombresVuelta[j]] = append(linea.Horario_Paradas_Vuelta[nombresVuelta[j]], horariosMatrizVuelta[i][j])
-			}
-		}
+	for i := 0; i < len(nombresVuelta); i++ {
+		linea.Horario_Paradas_Vuelta[nombresVuelta[i]] = append(linea.Horario_Paradas_Vuelta[nombresVuelta[i]], "")
 	}
 
 	return linea
@@ -94,37 +84,4 @@ func ExtraerTexto(celda string) string {
         return "---"
     }
     return s
-}
-
-
-func ProcesarBloqueTabla(bloqueHTML string) [][]string{
-    var datos [][]string
-    
-    reTBody := regexp.MustCompile(`(?s)<tbody>(.*?)</tbody>`)
-    matchTBody := reTBody.FindStringSubmatch(bloqueHTML)
-
-    contenidoTabla := bloqueHTML
-    if len(matchTBody) >= 2 {
-        contenidoTabla = matchTBody[1] 
-    }
-
-    reFila := regexp.MustCompile(`(?s)<tr>(.*?)</tr>`)
-    reCelda := regexp.MustCompile(`(?s)<td>(.*?)</td>`)
-    filas := reFila.FindAllStringSubmatch(contenidoTabla, -1) // Aplicamos búsqueda al <tbody>
-
-		for _, f := range filas {
-		contenidoFila := f[1] // Aquí asumes que f[1] existe.
-		
-		var datosFila []string
-		celdas := reCelda.FindAllStringSubmatch(contenidoFila, -1)
-		
-		for _, c := range celdas {
-			datosFila = append(datosFila, ExtraerTexto(c[1]))
-		}
-		
-		if len(datosFila) > 0 {
-			datos = append(datos, datosFila)
-		}
-	}
-	return datos
 }
