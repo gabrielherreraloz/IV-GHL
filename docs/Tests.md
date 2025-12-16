@@ -39,11 +39,11 @@ Cabe destacar, solo como apunte extra sin entrar en los criterior tomados, que m
    No está instalado de forma nativa junto con el lenguaje, por lo que inclumple el principal criterio además de tener riesgo de presentar casos en los que sí escriba en el directorio de código fuente, como a la hora de generar archivos de reporte de errores, o en la generación de archivos base de tests.
 
 ### Elección final
-La herramienta seleccionada como TestRunner es Go Test, ya que cumple a la perfección los dos criterios principales, está integrado de manera nativa con Go por lo que no es necesaria la instalación de dependencias adicionales, y además no escribe en el directorio principal del código fuente. Se ha seleccionado Go Test no solo como Test Runner, sino como herramienta CLI, como se indica más abajo en la documentación, ejecutando esta herramienta ambas funciones, manteniendo la consistencia durante todo el test.
+La herramienta seleccionada como TestRunner es Go Test, ya que cumple a la perfección los dos criterios principales, está integrado de manera nativa con Go por lo que no es necesaria la instalación de dependencias adicionales, y además no escribe en el directorio principal del código fuente. 
 
 
 ## Herramienta CLI de ejecución de tests
-Se usará la propia del lenguaje ya que es la forma más optima de realizar esta tarea.
+Se usará la propia del lenguaje ya que es la forma más optima de realizar esta tarea. Se ha seleccionado Go Test no solo como herramienta CLI, sino como Test Runner, como se ha indicado anteriormente, ejecutando esta herramienta ambas funciones, manteniendo la consistencia durante todo el test.
 
 ## Resumen de elecciones
 TestRunner: Go Test
