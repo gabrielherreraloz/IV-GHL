@@ -11,13 +11,15 @@ En este archivo se especifican los criterios de selección de TestRunner sobre e
 Se han tenido en cuenta las dos herramientas más usadas en proyectos con Go:
 
    **Estandar de Go**: 
-   Instalada nativamente junto con el lenguaje.
+   Instalada de forma nativa junto con el lenguaje.
 
    **Testify**: https://github.com/stretchr/testify 
    Requiere de su instalación adicional ya que no está integrado en Go.
 
 ### Elección final
-La elección definitiva es la bibilioteca estandar de Go, ya que ofrece la herramienta directamente integrada en el lenguaje sin necesidad de instalaciones adicionales.
+La elección definitiva es la bibilioteca estandar de Go, ya que ofrece la herramienta directamente integrada en el lenguaje sin necesidad de instalaciones adicionales. 
+
+Cabe destacar, solo como apunte extra sin entrar en los criterior tomados, que mientras muchas bibliotecas hacen uso de assert(), Go promueve el uso de if() y t.Errorf para reportar errores en los tests, lo cual permite el lanzamiento de errores más personalizados y descriptivos para cada ocasión.
 
 
 ## TestRunner
@@ -34,10 +36,10 @@ La elección definitiva es la bibilioteca estandar de Go, ya que ofrece la herra
    Muy parecido a GoTest, pero muestra la información más legible, sin embargo requiere la instalación de alguna herramienta adicional. No escribe en el directorio del código fuente.
 
    **ginkgo**: https://pkg.go.dev/github.com/onsi/ginkgo/ginkgo
-   No está instalado de forma nativa junto con el lenguaje, por lo que inclumple el principal criterio además de tener riesgo de presentar casos en los que sí escriba en el directorio de código fuente.
+   No está instalado de forma nativa junto con el lenguaje, por lo que inclumple el principal criterio además de tener riesgo de presentar casos en los que sí escriba en el directorio de código fuente, como a la hora de generar archivos de reporte de errores, o en la generación de archivos base de tests.
 
 ### Elección final
-La herramienta seleccionada como TestRunner es Go Test, ya que cumple a la perfección los dos criterios principales, está integrado de manera nativa con Go por lo que no es necesaria la instalación de dependencias adicionales, y además no escribe en el directorio principal del código fuente.
+La herramienta seleccionada como TestRunner es Go Test, ya que cumple a la perfección los dos criterios principales, está integrado de manera nativa con Go por lo que no es necesaria la instalación de dependencias adicionales, y además no escribe en el directorio principal del código fuente. Se ha seleccionado Go Test no solo como Test Runner, sino como herramienta CLI, como se indica más abajo en la documentación, ejecutando esta herramienta ambas funciones, manteniendo la consistencia durante todo el test.
 
 
 ## Herramienta CLI de ejecución de tests
