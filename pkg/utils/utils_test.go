@@ -30,7 +30,6 @@ func TestExtraerLinea(t *testing.T) {
         fileName := filepath.Base(filePath) 
 
         t.Run("Happy_Path_File_" + fileName, func(t *testing.T) {
-            t.Parallel() 
 
             htmlContent, err := os.ReadFile(filePath)
             if err != nil {
