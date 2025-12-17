@@ -5,7 +5,7 @@ import (
     "strings"
     "os"
     "path/filepath"
-    "IV-GHL/pkg/scrapper"
+    "IV-GHL/pkg/scraper"
 )
 
 // Ruta de los HTML descargados de ejemplo estandar (Happy Path)
@@ -37,7 +37,7 @@ func TestExtraerLinea(t *testing.T) {
             }
             
             htmlString := string(htmlContent)
-            linea, err := scrapper.ExtraerLinea(htmlString)
+            linea, err := scraper.ExtraerLinea(htmlString)
 
             if err != nil {
                 t.Errorf("FAIL [%s]: Se obtuvo un error: %v", fileName, err)
@@ -69,7 +69,7 @@ func TestExtraerLinea(t *testing.T) {
 func TestExtraerNombresParadas(t *testing.T) {
     t.Run("Sad_Path_Sin_Paradas", func(t *testing.T) {
         html := `<table><tr></tr></table>`
-        nombres := scrapper.ExtraerNombresParadas(html)
+        nombres := scraper.ExtraerNombresParadas(html)
 
         if len(nombres) != 0 {
             t.Errorf("Se esperaba lista vacía para HTML sin paradas, se obtuvo %v", nombres)
@@ -86,7 +86,7 @@ func TestExtraerNombresParadas(t *testing.T) {
                 </tr>
             </table>
         `
-        nombres := scrapper.ExtraerNombresParadas(html)
+        nombres := scraper.ExtraerNombresParadas(html)
         
         expected := []string{"---", "---", "---"} 
         if len(nombres) != len(expected) {
@@ -107,7 +107,7 @@ func TestExtraerNombresParadas(t *testing.T) {
 func TestGetNumLinea(t *testing.T) {
     t.Run("Sad_Path_Sin_Separador", func(t *testing.T) {
         html := `<h2> LINEA SIN GUION </h2>`
-        numLinea, err := scrapper.GetNumLinea(html)
+        numLinea, err := scraper.GetNumLinea(html)
 
         if err != nil {
             t.Errorf("ERROR: No se esperaba un error en este caso, se obtuvo: %v", err)
@@ -124,7 +124,7 @@ func TestGetNumLinea(t *testing.T) {
         html := `<h1>Otro Titulo</h1>`
         
         // Ahora GetNumLinea devuelve "" si no hay match
-        numLinea, error := scrapper.GetNumLinea(html)
+        numLinea, error := scraper.GetNumLinea(html)
         if (error == nil) {
             t.Errorf("ERROR: Se esperaba un error pero no se detectó")
         }
@@ -150,7 +150,7 @@ func TestExtraerTexto(t *testing.T) {
         }
         
         for input, expected := range inputs {
-            if result := scrapper.ExtraerTexto(input); result != expected {
+            if result := scraper.ExtraerTexto(input); result != expected {
                 t.Errorf("Input: '%s'. Se esperaba '%s', Se obtuvo '%s'", strings.ReplaceAll(input, "\n", "\\n"), expected, result)
             }
         }
