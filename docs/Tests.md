@@ -10,16 +10,16 @@ En este archivo se especifican los criterios de selección de TestRunner sobre e
 ### Opciones presentadas
 Se han tenido en cuenta las dos herramientas más usadas en proyectos con Go:
 
-   **Estandar de Go**: 
-   Instalada de forma nativa junto con el lenguaje.
+   **Estandar de Go** (testing): https://pkg.go.dev/testing
+   Instalada de forma nativa junto con el lenguaje, el cual utiliza "testing" comp paquete
 
    **Testify**: https://github.com/stretchr/testify 
    Requiere de su instalación adicional ya que no está integrado en Go.
 
 ### Elección final
-La elección definitiva es la bibilioteca estandar de Go, ya que ofrece la herramienta directamente integrada en el lenguaje sin necesidad de instalaciones adicionales. 
+La elección definitiva es la bibilioteca estandar de Go, testing, ya que ofrece la herramienta directamente integrada en el lenguaje sin necesidad de instalaciones adicionales. 
 
-Cabe destacar, solo como apunte extra sin entrar en los criterior tomados, que mientras muchas bibliotecas hacen uso de assert(), Go promueve el uso de if() y t.Errorf para reportar errores en los tests, lo cual permite el lanzamiento de errores más personalizados y descriptivos para cada ocasión.
+Cabe destacar, solo como apunte extra sin entrar en los criterior tomados, que mientras muchas bibliotecas hacen uso de assert(), testing promueve el uso de if() y t.Errorf para reportar errores en los tests, lo cual permite el lanzamiento de errores más personalizados y descriptivos para cada ocasión.
 
 
 ## TestRunner
@@ -31,9 +31,6 @@ Cabe destacar, solo como apunte extra sin entrar en los criterior tomados, que m
 ### Opciones presentadas
    **Go Test**: https://pkg.go.dev/testing
    La herramienta nativa de Go para testing, está instalado nativamente junto con el propio lenguaje, por lo que no es necesaria su instalación aparte. No escribe en el directorio del código fuente.
-
-   **gotestsum**: https://pkg.go.dev/github.com/IstrateM/gotestsum/pkg/gotestsum 
-   Muy parecido a GoTest, pero muestra la información más legible, sin embargo requiere la instalación de alguna herramienta adicional. No escribe en el directorio del código fuente.
 
    **ginkgo**: https://pkg.go.dev/github.com/onsi/ginkgo/ginkgo
    No está instalado de forma nativa junto con el lenguaje, por lo que inclumple el principal criterio además de tener riesgo de presentar casos en los que sí escriba en el directorio de código fuente, como a la hora de generar archivos de reporte de errores, o en la generación de archivos base de tests.
