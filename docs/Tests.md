@@ -41,6 +41,7 @@ La herramienta seleccionada como TestRunner es Go Test, ya que cumple a la perfe
 
 ## Herramienta CLI de ejecución de tests
 Se usará la propia del lenguaje ya que es la forma más optima de realizar esta tarea. Se ha seleccionado Go Test no solo como herramienta CLI, sino como Test Runner, como se ha indicado anteriormente, ejecutando esta herramienta ambas funciones, manteniendo la consistencia durante todo el test.
+En caso de haber elegido ginkgo, podríamos heber utilizado su herramienta CLI propia pues este también la incluye.
 
 ## Resumen de elecciones
 TestRunner: Go Test
