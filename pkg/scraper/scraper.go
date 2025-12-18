@@ -94,6 +94,10 @@ func ExtraerNombresParadas(bloqueHTML string) ([]string, error) {
     re := regexp.MustCompile(`<th[^>]*>(.*?)</th>`)
     matches := re.FindAllStringSubmatch(bloqueHTML, -1)
 
+	if len(matches) == 0 {
+        return nil, ErrNoParadas
+    }
+
     for _, match := range matches {
 		// match[1] contiene unicamente el nombre de la parada
 		res, err := ExtraerTexto(match[1])
@@ -126,8 +130,8 @@ func ExtraerTexto(celda string) (string, error) {
     s = strings.ReplaceAll(s, "\n", "")
     s = strings.ReplaceAll(s, "\r", "")
 
-    if s == "" || s == "-" {
-        return "", ErrCeldaVacia
+    if s == "" || s == "-" || s == "---" {
+        return "---", ErrCeldaVacia
     }
     return s, nil
 }
