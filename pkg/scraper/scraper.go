@@ -27,13 +27,13 @@ func ExtraerLinea(htmlContent string) (*internal.Linea, error) {
 	idxFinVuelta := strings.Index(htmlContent, `<div class="leyendas">`)
 
 	if idxIda == -1 {
-		return nil, ErrMarcadorIda
+		return nil, ErrNoMarcadorIda
 	}
 	if idxVuelta == -1 {
-		return nil, ErrMarcadorVuelta
+		return nil, ErrNoMarcadorVuelta
 	}
 	if idxFinVuelta == -1 {
-		return nil, ErrMarcadorVuelta
+		return nil, ErrNoMarcadorVuelta
 	}
 
 	bloqueIda := htmlContent[idxIda:idxVuelta]
@@ -69,12 +69,16 @@ func GetNumLinea(htmlContent string) (string, error) {
     match := re.FindStringSubmatch(htmlContent)
 
     if len(match) < 2 {
-        return "", ErrH2NotFound
+        return "", ErrNoH2
     }
 	
 	// match[1] contiene unicamente el nombre de la línea completo.
     tituloCompleto := strings.TrimSpace(match[1])
     partes := strings.SplitN(tituloCompleto, " - ", 2)
+
+    if !strings.Contains(tituloCompleto, " - ") {
+        return "", ErrNoSeparador
+    }
 
 	// Devuelve unicamente el número de la línea, separado del nombre completo.
     return strings.TrimSpace(partes[0]), nil
