@@ -1,7 +1,6 @@
 package scraper
 
 import (
-	"fmt"
 	"strings"
 	"IV-GHL/internal"
 	"regexp"
@@ -15,9 +14,9 @@ func ExtraerLinea(htmlContent string) (*internal.Linea, error) {
 	}
 
 	// Extracción número de la línea
-	numLinea, error := GetNumLinea(htmlContent)
-	if(error != nil){
-		return linea, error
+	numLinea, err := GetNumLinea(htmlContent)
+	if(err != nil){
+		return nil, err
 	}
 
 	linea.NumLinea = numLinea
@@ -28,33 +27,36 @@ func ExtraerLinea(htmlContent string) (*internal.Linea, error) {
 	idxFinVuelta := strings.Index(htmlContent, `<div class="leyendas">`)
 
 	if idxIda == -1 {
-		error = fmt.Errorf("no se encontraron los marcadores Ida")
-		return linea, error
+		return nil, ErrMarcadorIda
 	}
 	if idxVuelta == -1 {
-		error = fmt.Errorf("no se encontraron los marcadores Vuelta")
-		return linea, error
+		return nil, ErrMarcadorVuelta
 	}
 	if idxFinVuelta == -1 {
-		error = fmt.Errorf("no se encontraron los marcadores FinVuelta")
-		return linea, error
+		return nil, ErrMarcadorVuelta
 	}
 
 	bloqueIda := htmlContent[idxIda:idxVuelta]
 	bloqueVuelta := htmlContent[idxVuelta:idxFinVuelta]
 
 	// Extracción de nombres de paradas y horarios de ida y vuelta
-	nombresIda := ExtraerNombresParadas(bloqueIda)
+	nombresIda, err := ExtraerNombresParadas(bloqueIda)
+	if(err != nil){
+		return nil, err
+	}
 	for i := 0; i < len(nombresIda); i++ {
 		linea.Horario_Paradas_Ida[nombresIda[i]] = append(linea.Horario_Paradas_Ida[nombresIda[i]], "")
 	}
 
-	nombresVuelta := ExtraerNombresParadas(bloqueVuelta)
+	nombresVuelta, err := ExtraerNombresParadas(bloqueVuelta)
+	if(err != nil){
+		return nil, err
+	}
 	for i := 0; i < len(nombresVuelta); i++ {
 		linea.Horario_Paradas_Vuelta[nombresVuelta[i]] = append(linea.Horario_Paradas_Vuelta[nombresVuelta[i]], "")
 	}
 
-	return linea, error
+	return linea, err
 }
 
 func GetNumLinea(htmlContent string) (string, error) {
@@ -67,7 +69,7 @@ func GetNumLinea(htmlContent string) (string, error) {
     match := re.FindStringSubmatch(htmlContent)
 
     if len(match) < 2 {
-        return "", fmt.Errorf("el contenido HTML no contiene el encabezado <h2> necesario para el título")
+        return "", ErrH2NotFound
     }
 	
 	// match[1] contiene unicamente el nombre de la línea completo.
@@ -78,7 +80,7 @@ func GetNumLinea(htmlContent string) (string, error) {
     return strings.TrimSpace(partes[0]), nil
 }
 
-func ExtraerNombresParadas(bloqueHTML string) []string {
+func ExtraerNombresParadas(bloqueHTML string) ([]string, error) {
     var nombres []string
 
 	// Explicación:
@@ -90,13 +92,18 @@ func ExtraerNombresParadas(bloqueHTML string) []string {
 
     for _, match := range matches {
 		// match[1] contiene unicamente el nombre de la parada
-		nombres = append(nombres, ExtraerTexto(match[1]))
+		res, err := ExtraerTexto(match[1])
+		if(err != nil){
+			return nil, err
+		}
+
+		nombres = append(nombres, res)
     }
 
-    return nombres
+    return nombres, nil
 }
 
-func ExtraerTexto(celda string) string {
+func ExtraerTexto(celda string) (string, error) {
 	// < : Apertura de etiqueta.
 	// [^>]* : Cualquier contenido en medio que no sea el cierre.
 	// > : Cierre de etiqueta.
@@ -116,7 +123,7 @@ func ExtraerTexto(celda string) string {
     s = strings.ReplaceAll(s, "\r", "")
 
     if s == "" || s == "-" {
-        return "---"
+        return "", ErrCeldaVacia
     }
-    return s
+    return s, nil
 }
