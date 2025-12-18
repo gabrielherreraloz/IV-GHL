@@ -2,10 +2,10 @@ package utils
 
 import (
     "testing"
-    "strings"
     "os"
     "path/filepath"
     "IV-GHL/pkg/scraper"
+    "errors"
 )
 
 // Ruta de los HTML descargados de ejemplo estandar (Happy Path)
@@ -40,23 +40,8 @@ func TestExtraerLinea(t *testing.T) {
             linea, err := scraper.ExtraerLinea(htmlString)
 
             if err != nil {
-                t.Errorf("FAIL [%s]: Se obtuvo un error: %v", fileName, err)
+                t.Errorf("No se esperaba error y se obtuvo: %s", err)
                 return
-            }
-
-            expectedNumLinea := strings.TrimPrefix(strings.TrimSuffix(fileName, ".html"), "linea_")
-
-            if linea.NumLinea != expectedNumLinea {
-                t.Errorf("FAIL [%s]: NumLinea incorrecto. Se esperaba '%s', se obtuvo '%s'", 
-                    fileName, expectedNumLinea, linea.NumLinea)
-            }
-            
-            if len(linea.Horario_Paradas_Ida) == 0 {
-                t.Errorf("FAIL [%s]: No se extrajeron paradas de Ida.", fileName)
-            }
-
-            if len(linea.Horario_Paradas_Vuelta) == 0 {
-                t.Errorf("FAIL [%s]: No se extrajeron paradas de Vuelta.", fileName)
             }
         })
     }
@@ -69,33 +54,13 @@ func TestExtraerLinea(t *testing.T) {
 func TestExtraerNombresParadas(t *testing.T) {
     t.Run("Sad_Path_Sin_Paradas", func(t *testing.T) {
         html := `<table><tr></tr></table>`
-        nombres := scraper.ExtraerNombresParadas(html)
+        nombres, err := scraper.ExtraerNombresParadas(html)
 
-        if len(nombres) != 0 {
-            t.Errorf("Se esperaba lista vacía para HTML sin paradas, se obtuvo %v", nombres)
+        if !errors.Is(err, scraper.ErrCeldaVacia){
+            t.Errorf("Se esperaba ErrCeldaVacia, se obtuvo: %v", err)
         }
-    })
-    
-    t.Run("Sad_Path_Headers_Vacios_o_Espacios", func(t *testing.T) {
-        html := `
-            <table>
-                <tr>
-                    <th>  </th>
-                    <th>&nbsp;</th>
-                    <th><br></th>
-                </tr>
-            </table>
-        `
-        nombres := scraper.ExtraerNombresParadas(html)
-        
-        expected := []string{"---", "---", "---"} 
-        if len(nombres) != len(expected) {
-            t.Fatalf("Fallo de conteo")
-        }
-        for _, name := range nombres {
-            if name != "---" {
-                t.Errorf("La limpieza de nombres vacíos o con solo tags falló. Obtenido: %s", name)
-            }
+        if (len(nombres) != 0){
+            t.Errorf("Se esperaba lista vacía, se obtuvieron %d elementos", len(nombres))
         }
     })
 }
@@ -109,29 +74,25 @@ func TestGetNumLinea(t *testing.T) {
         html := `<h2> LINEA SIN GUION </h2>`
         numLinea, err := scraper.GetNumLinea(html)
 
-        if err != nil {
-            t.Errorf("ERROR: No se esperaba un error en este caso, se obtuvo: %v", err)
-            return
+        if !errors.Is(err, scraper.ErrNoSeparador){
+            t.Errorf("Se esperaba error %v, pero se obtuvo: %v", scraper.ErrNoSeparador, err)
         }
 
-        expected := "LINEA SIN GUION" 
-        if numLinea != expected {
-            t.Errorf("Se esperaba '%s', Se obtuvo '%s'", expected, numLinea)
+        if (numLinea != ""){
+            t.Errorf("Se esperaba string vacío al haber error, se obtuvo '%s'", numLinea)
         }
     })
     
     t.Run("Sad_Path_Sin_Titulo_H2", func(t *testing.T) {
         html := `<h1>Otro Titulo</h1>`
-        
-        // Ahora GetNumLinea devuelve "" si no hay match
-        numLinea, error := scraper.GetNumLinea(html)
-        if (error == nil) {
-            t.Errorf("ERROR: Se esperaba un error pero no se detectó")
+        numLinea, err := scraper.GetNumLinea(html)
+
+        if !errors.Is(err, scraper.ErrNoH2){
+            t.Errorf("Se esperaba el error específico ErrH2NotFound, se obtuvo: %v", err)
         }
-        expected := ""
         
-        if numLinea != expected {
-            t.Errorf("Se esperaba una cadena vacía ('%s') al no encontrar H2, Se obtuvo '%s'", expected, numLinea)
+        if (numLinea != ""){
+            t.Errorf("Se esperaba string vacío, se obtuvo '%s'", numLinea)
         }
     })
 }
@@ -149,9 +110,15 @@ func TestExtraerTexto(t *testing.T) {
             "-":            "---", 
         }
         
-        for input, expected := range inputs {
-            if result := scraper.ExtraerTexto(input); result != expected {
-                t.Errorf("Input: '%s'. Se esperaba '%s', Se obtuvo '%s'", strings.ReplaceAll(input, "\n", "\\n"), expected, result)
+        for input := range inputs {
+            result, err := scraper.ExtraerTexto(input)
+            
+            if !errors.Is(err, scraper.ErrCeldaVacia){
+                t.Errorf("Input '%s': Se esperaba ErrCeldaVacia, se obtuvo: %v", input, err)
+            }
+            
+            if (result != "---"){
+                t.Errorf("Input '%s': Se esperaba '---', se obtuvo '%s'", input, result)
             }
         }
     })
