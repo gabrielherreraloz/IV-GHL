@@ -1,4 +1,5 @@
 package internal
+import "errors"
 
 type TipoMedio int
 const AUTOBUS TipoMedio = 0
@@ -20,5 +21,22 @@ type Parada struct {
 type Almacen struct {
 	Lineas map[uint]*Linea
 	Paradas map[uint]*Parada
+}
+
+var ErrLíneaExistente = errors.New("la línea introducida ya se había guardado anteriormente")
+
+func (alm *Almacen) AlmacenarLinea(id uint, nuevaLinea *Linea) error {
+    if alm.Lineas == nil {
+        alm.Lineas = make(map[uint]*Linea)
+    }
+
+    for _, l := range alm.Lineas {
+        if l.NumLinea == nuevaLinea.NumLinea {
+            return ErrLíneaExistente
+        }
+    }
+
+    alm.Lineas[id] = nuevaLinea
+    return nil
 }
 

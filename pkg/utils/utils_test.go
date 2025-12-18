@@ -5,6 +5,7 @@ import (
     "os"
     "path/filepath"
     "IV-GHL/pkg/scraper"
+    "IV-GHL/internal"
     "errors"
 )
 
@@ -40,7 +41,7 @@ func TestExtraerLinea(t *testing.T) {
             linea, err := scraper.ExtraerLinea(htmlString)
 
             if err != nil {
-                t.Errorf("No se esperaba error y se obtuvo: %s", err)
+                t.Errorf("No se esperaba error en línea %s y se obtuvo: %v", err, linea)
                 return
             }
         })
@@ -56,8 +57,8 @@ func TestExtraerNombresParadas(t *testing.T) {
         html := `<table><tr></tr></table>`
         nombres, err := scraper.ExtraerNombresParadas(html)
 
-        if !errors.Is(err, scraper.ErrCeldaVacia){
-            t.Errorf("Se esperaba ErrCeldaVacia, se obtuvo: %v", err)
+        if !errors.Is(err, scraper.ErrNoParadas){
+            t.Errorf("Se esperaba ErrNoParadas, se obtuvo: %v", err)
         }
         if (len(nombres) != 0){
             t.Errorf("Se esperaba lista vacía, se obtuvieron %d elementos", len(nombres))
@@ -120,6 +121,41 @@ func TestExtraerTexto(t *testing.T) {
             if (result != "---"){
                 t.Errorf("Input '%s': Se esperaba '---', se obtuvo '%s'", input, result)
             }
+        }
+    })
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// TESTS PARA ÚNICA FUENTE DE VERDAD
+/////////////////////////////////////////////////////////////////////////////////////
+
+func Testalmacenado(t *testing.T){
+    t.Run("Test_Líneas_Repetidas", func(t *testing.T){
+        alm := &internal.Almacen{
+        Lineas: make(map[uint]*internal.Linea),
+        }
+        linea1 := &internal.Linea{
+            NumLinea: "L1",
+            TipoMedio: internal.AUTOBUS,
+        }
+        linea2 := &internal.Linea{
+            NumLinea: "L1",
+            TipoMedio: internal.AUTOBUS,
+        }
+
+        // 3. Primer intento: Debe ser exitoso (Happy Path)
+        err := alm.AlmacenarLinea(1, linea1)
+        if err != nil {
+            t.Fatalf("No se esperaba error al insertar la primera vez, pero se obtuvo: %v", err)
+        }
+
+        // 4. Segundo intento: Debe fallar (Sad Path)
+        err = alm.AlmacenarLinea(2, linea2)
+        if !errors.Is(err, internal.ErrLíneaExistente) {
+            t.Errorf("Se esperaba el error internal.ErrLineaExistente, pero se obtuvo: %v", err)
+        }
+        if len(alm.Lineas) != 1 {
+            t.Errorf("El almacén debería tener solo 1 línea guardada, pero tiene %d", len(alm.Lineas))
         }
     })
 }
