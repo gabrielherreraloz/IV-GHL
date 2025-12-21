@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, target-densityDpi=medium-dpi" id="testViewport">
+
+<!-- device-dpi medium-dpi low-dpi high-dpi-->
+<!-- meta name="viewport" content="width=device-width, user-scalable=1" / -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="hide" />
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://siu.ctagr.es/movil/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://siu.ctagr.es/movil/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://siu.ctagr.es/movil/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="https://siu.ctagr.es/movil/ico/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="https://siu.ctagr.es/movil/ico/favicon.ico">
+
+<title>Consorcio de Transportes de Andalucía</title>
+<link href="/movil/css/bootstrap.css" rel="stylesheet">
+<link href="/movil/js/stylesheets/jquery.sidr.light.css" rel="stylesheet">
+
+<!-- JQUERY - BOOTSTRAP - SIDR MENULATERAL - SUS CSS Y LA DE PAGINA -->
+<script src="/movil/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/movil/js/jquery.sidr.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="/movil/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/movil/css/estilos-pagina.css" rel="stylesheet">
+
+<link href="/movil/css/estilos-print.css" rel="stylesheet" media="print">
+
+<script src="/movil/js/bootstrap.min.js"></script>	
+
+
+
+<script>
+	function guarda(clave, valor){
+		try{
+			return window.localStorage.setItem(clave, valor);
+		}catch(err){
+			return null;
+		}		
+	}
+	function trae(clave){
+		try{
+			return window.localStorage.getItem(clave);
+		}catch(err){
+			return null;
+		}				
+	}		
+	function iniDatosPesistentes(){
+		//por defecto no filtrar por GPS
+		if(trae('g_cercanos')==null){
+				guarda('g_cercanos', ''); 
+		}
+	}
+	iniDatosPesistentes();
+	
+	function cambiaIdioma(idioma){
+		var url="gestIdiomas.php";
+		$.get(url,{ lang: idioma },function(){
+			location.reload();
+		});
+	}
+
+	$(function(){
+
+		$('.cab-btn-menu').sidr({
+		  name: 'menu_ppal',
+		  side: 'left'
+		});
+
+		
+		$('.sub-nav .btn-volver').bind('click', function(e){
+			e.stopPropagation();
+			e.preventDefault();
+			window.history.back();
+		});	
+		
+		$('.cerrar_sidr').bind('click', function(e){
+			e.stopPropagation();
+			e.preventDefault();
+			jQuery.sidr('close', $(this).parents('div:eq(0)').attr('id') , null);
+			
+		});	
+		//al pulsar en el LOGO de cabecera vamos a pagina inicial
+		$('.cab-logo').bind('click', function(e){
+			e.stopPropagation();
+			e.preventDefault();
+			location.href="index.php";
+			
+		});	
+
+
+         $(window).resize(function () {
+		 	
+			if ($('#menu_itinerario').length ) {
+				jQuery.sidr('close','menu_itinerario');
+			}
+			if ($('#menu_ppal').length ) {
+				jQuery.sidr('close','menu_ppal');
+			}
+			if ($('#menu_idm').length ) {
+				jQuery.sidr('close','menu_idm');
+			}
+
+         });
+
+	});
+</script>
+<!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7PQNLHB1X"></script>
+        <script>                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-P7PQNLHB1X');
+        </script>
+
+<link href="/movil/css/footable.core.css" rel="stylesheet" type="text/css"/>
+<script src="/movil/js/footable.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/funcionesAPI.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.54/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/vfs_fonts.js"></script>
+<script type="text/javascript" src="/js/funcionesPDF.js"></script> <!-- por ahora un solo script con todas las funciones de los pdfs -->
+
+<script type="text/javascript">
+	$(function(){
+
+		var s= 'img[id^="paradasDemanda"]';
+
+		$('body').click(function() {
+		   $("#emergente1").slideUp("fast", function(){});
+		});
+
+		$('body').on('click', s, function (e) {
+			var id=$(this).attr("id").split('-')[1];
+			var idl=id.split(',')[0];
+			var ids=id.split(',')[1];
+			vids=ids.split('_');
+			if (vids.lenght==2){
+				ids=ids.split('_')[0];
+			}
+			var idb=id.split(',')[2];
+			//alert("llamada recurso con ids="+ids + ",idb="+idb);
+			cargar_paradasAPIMovil($(this),idl,ids,idb,3);
+		});
+
+		//LAS TABLAS COLAPSABLES
+		var counter = 0;
+		$('.table').footable({
+			breakpoints: {
+				tiny: 250,
+				phone: 320,
+				phonebig: 380,
+				phonebig3: 500,
+				medium: 600,
+				medium2: 700,
+				tabletpeque: 800,
+				tabletpeque4: 980,
+				tablet: 1024,
+				tabletbig: 1800,
+				big: 2048
+			}
+
+		});
+
+
+		$(document).ready(function() {
+			var pulsado = false;
+
+			$('#tab_descarga').click(  function(e){
+				if (!pulsado){
+					pulsado = true;
+					// cambiar imagen
+					cambiarImagen();
+
+					crear_PDFCompleto(3,1128);// saludar();
+					pulsado = setTimeout ( function(){ pulsado = false; restaurarImagen();}, 3000);
+				}
+			} );
+		});
+
+		function cambiarImagen(){
+			var gifCargando = "/movil" + "/img/loader_movil.gif";
+			console.log(gifCargando);
+			$('#tab_descarga').attr('src', gifCargando);
+		}
+		function restaurarImagen(){
+			var imagenAnterior = "/movil" + "/img/btn_pdf.png";
+			console.log(imagenAnterior);
+			$('#tab_descarga').attr('src', imagenAnterior);
+		}
+
+	});
+</script>
+</head>
+<body>
+	<img id="cabeceraConsorcio" style="display: none;" src="/pdf/cabecerapdf0.jpg" alt="">
+<!-- MENUS PPAL / IDIOMAS -->
+
+<div id="menu_ppal" class="sidr left">
+  <ul>
+  <li><div class="cerrar_sidr"><img src="/movil/img/btn_cerrar_sidr.png" /></div></li>
+ 
+	<li><a href="index.php">Inicio</a></li>
+
+	<li><a href="atencion.php">Atención al usuario</a></li>	
+
+
+	<li><a href="ruta_01.php">Cálculo de ruta</a></li>	
+
+
+
+
+    <li><a href="horarios.php">Horarios</a></li>
+
+
+
+
+    <li><a href="lineas.php">Líneas</a></li>
+
+
+
+
+
+    <li><a href="puntos_de_venta.php">Puntos de venta</a></li>
+
+
+
+    <li><a href="tarifas.php">Tarifas</a></li>
+
+
+
+
+    <li><a href="noticias.php">Noticias</a></li>
+
+    <li><a href="siu_datosconsorcio.php">Datos del consorcio</a></li>
+  </ul>
+</div>
+	<!-- CABECERA -->
+<div class="cab">
+	<img class="cab-btn-menu" src="/movil/img/btn_menu.png" /> 
+	<img class="cab-logo" src="/movil/img/logo.png" /> 
+
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
+
+<div id="emergente1" class="emergente1 vistaModal" style="display:none;">
+	<div class="modal-dialog">
+	<h4><a href="#"><img class="btn-volver" src="/movil/img/btn_volver.png"></a>Paradas</h4>
+	<ul></ul>
+	</div>
+</div>
+<h1>Horarios de la línea</h1>
+	<div class="migas">
+		<span class="home"><a href="index.php">Inicio</a></span>
+		<span><a href="horarios.php">Horarios</a></span>
+    	<span><a href="horarios_lineas.php">Horarios de la línea</a></span>
+					<span>0104 - A.Humeya - Jun - S.Jerónimo</span>
+			</div>
+	</div>
+</div>
+
+	<div class="sub-nav">
+		<a href="#"><img class="btn-volver" src="/movil/img/btn_volver.png" /></a>
+					<div class="sub-nav-titl"><h2>0104 - A.Humeya - Jun - S.Jerónimo </h2></div>
+						<a href="#"><img id="tab_descarga" class="btn-busc" src="/movil/img/btn_pdf.png" /></a>
+			</div>
+
+	 <a href="#" class="boton-ancho boton-25x100 boton-25x100-on">Horario</a>
+	 <a href="siu_lineas_detalles_itinerario.php?linea=1128&from=1" class="boton-ancho boton-25x100 spacioizq-25x100">Itinerario</a>
+	 <a href="siu_lineas_detalles_termometro.php?linea=1128&from=1" class="boton-ancho boton-25x100 spacioizq-25x100">Termómetro</a>
+	 <a href="noticias.php?linea=1128&from=1" class="boton-ancho boton-25x100 spacioizq-25x100">Noticias</a>
+	<div id="contenidotab1">
+
+
+		
+			<br><p><strong>
+			Desde 22/11/2025			</strong></p>
+
+											<p><br/><strong>Ida</strong></p>
+
+						<table border="0" class="table  table-bordered tabla_horario" data-filter="#filter" data-page-size="5" data-page-previous-text="prev" data-page-next-text="next">
+									
+												<thead><tr>
+									<th valign="bottom" style="background:#ffedae;"  data-toggle="true"  ><div id="nucleo_0">Urb. Abén Humeya</div></th>
+
+										<th valign="bottom" style="background:#ffedae;"   data-hide="tiny" ><div id="nucleo_1">Urb. San Jerónimo</div></th>
+
+					
+									<th valign="bottom" id="dias">Frecuencia</th>
+												</tr></thead>
+				<tbody>
+
+			<tr><td>07:15</td><td>07:25</td><td>LMXJV---</td></tr><tr><td>07:35</td><td>07:45</td><td>LMXJV---</td></tr><tr><td>08:10</td><td>08:20</td><td>LMXJV---</td></tr><tr><td>14:35</td><td>14:45</td><td>LMXJV---</td></tr><tr><td>15:05</td><td>15:15</td><td>LMXJV---</td></tr>			</tbody></table>
+						<br/>
+						<p><br/><strong>Vuelta</strong></p>
+			
+
+			<table border="0" class="table  table-bordered tabla_horario" data-filter="#filter" data-page-size="5" data-page-previous-text="prev" data-page-next-text="next">
+									
+												<thead><tr>
+									<th valign="bottom" style="background:#ffedae;"  data-toggle="true"  ><div id="nucleo_0">Urb. San Jerónimo</div></th>
+
+										<th valign="bottom" style="background:#ffedae;"   data-hide="tiny" ><div id="nucleo_1">Urb. Abén Humeya</div></th>
+
+					
+
+									<th valign="bottom" id="dias">Frecuencia</th>
+				
+				
+				</tr></thead>
+				<tbody>
+
+			<tr><td>07:25</td><td>07:35</td><td>LMXJV---</td></tr><tr><td>07:55</td><td>08:10</td><td>LMXJV---</td></tr><tr><td>08:20</td><td>08:35</td><td>LMXJV---</td></tr><tr><td>14:45</td><td>15:05</td><td>LMXJV---</td></tr><tr><td>15:15</td><td>15:30</td><td>LMXJV---</td></tr>			</tbody></table>
+		
+
+	<div class="leyendas">
+		<div>
+	    <h3>Abreviaturas</h3>
+    	<ul class="abreviaturas">
+    		<li><strong>---</strong><span>Sin parada en esa zona</span></li>
+	    					<li><strong>LMXJV---</strong><span>LABORABLE</span></li>
+			    	</ul>
+		<br>
+	    </div>
+        <div>
+	    <h3>Sistema tarifario</h3>
+	    <ul class="zonas">
+			    		<li><strong style="background:#ffffbf">A</strong><span>Zona A</span></li>
+			    		<li><strong style="background:#ffedae">B</strong><span>ZONA B</span></li>
+			    		<li><strong style="background:#eeeec7">C</strong><span>ZONA C</span></li>
+			    		<li><strong style="background:#cccccc">D</strong><span>ZONA D</span></li>
+			    		<li><strong style="background:#e5d8a1">EX</strong><span>EXTERNA</span></li>
+					</ul>
+		<br>
+    	</div>
+	</div>
+
+<p></p>
+
+
+
+	</div><!-- contenidotab1 -->
+
+</div>
+
+</body>
+</html>

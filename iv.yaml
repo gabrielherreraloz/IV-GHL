@@ -1,5 +1,7 @@
 lenguaje: go
-entidad: internal/persona/model.go
+entidad: internal/model.go
 automatizar:
   fichero: Makefile
   orden: make
+test: pkg/utils/utils_test.go
+
