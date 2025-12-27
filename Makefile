@@ -3,3 +3,6 @@ install:
 
 check:
 	go fmt ./...
+
+test:
+	go test ./...

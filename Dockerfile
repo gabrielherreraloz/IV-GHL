@@ -1,23 +1,17 @@
-# Usa la imagen oficial de Go como base
-FROM golang:1.22.2-bullseye
+FROM golang:1.25.5-alpine3.23
 
-# Crear el directorio de trabajo (donde el profesor montará el volumen)
+# Es necesario instalar make y gcc para que "make test" funcione
+RUN apk add --no-cache make gcc musl-dev
+
+# Directorio indicado en la documentación del objetivo
 WORKDIR /app/test
 
-# Copiar archivos de dependencias primero para aprovechar la caché
-COPY go.mod ./
-# Si tienes go.sum, descomenta la siguiente línea:
-# COPY go.sum ./
-
-# Descargar dependencias
-RUN go mod download
-
-# Copiar el resto del código fuente
-COPY . .
-
-# IMPORTANTE: Para que Go no intente escribir en la carpeta montada (solo lectura)
-# redirigimos el cache de los tests a una carpeta temporal con permisos
+# Creamos la carpeta de cache y le damos permisos al usuario 1001
+RUN mkdir -p /tmp/go-cache && chmod -R 777 /tmp/go-cache
 ENV GOCACHE=/tmp/go-cache
 
-# El comando que ejecutará los tests
-CMD ["go", "test", "./..."]
+COPY . .
+RUN go mod download
+
+# Comando ejecutado al lanzar el contenedor
+ENTRYPOINT ["make", "test"]
