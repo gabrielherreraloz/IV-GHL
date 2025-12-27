@@ -31,3 +31,6 @@ Comandos básicos:
 
 ## Tests
 [Ubicación del archivo de tests](pkg/utils/utils_test.go)
+
+## Docker
+[Documentación de las imágenes docker seleccionada](docs/Contenedor.md)
