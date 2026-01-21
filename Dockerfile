@@ -1,12 +1,6 @@
-FROM golang:bookworm-slim
+FROM bitnami/golang
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    make \
-    && rm -rf /var/lib/apt/lists/
-
-RUN useradd -r test_usr
-
-USER test_usr
+RUN install_packages make
 
 WORKDIR /app/test
 
