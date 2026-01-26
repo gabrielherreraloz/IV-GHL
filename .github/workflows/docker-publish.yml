@@ -1,0 +1,32 @@
+name: Docker publisher - build and push
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  IMAGE_NAME: gabrielherreraloz15/iv-ghl
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Log into dockerhub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3 # v3.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v6 # v5.0.0
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
